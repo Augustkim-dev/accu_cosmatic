@@ -1,0 +1,235 @@
+:root{
+  --ink:#1a1a1a; --muted:#8a8f98; --line:#ececec; --bg:#fff;
+  --accent:#c64b6e; --accent-d:#a83a5a; --soft:#faf7f8;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color:var(--ink);background:var(--bg);line-height:1.6;font-size:15px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.muted{color:var(--muted)}
+.sm{font-size:12px}
+h1,h2{font-weight:700}
+
+/* header */
+.site-head{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);z-index:20}
+.head-inner{display:flex;align-items:center;gap:20px;height:62px}
+.logo{font-size:20px;font-weight:800;letter-spacing:.3px;color:var(--accent);white-space:nowrap}
+.head-collapse{display:flex;flex:1;align-items:center;gap:24px}
+.nav{display:flex;gap:20px;flex:1}
+.nav a{color:#333;font-weight:500}
+.nav a:hover{color:var(--accent)}
+.head-account{display:flex;gap:14px}
+.head-account a{color:#444;font-size:14px}
+.head-account a:hover{color:var(--accent)}
+.langs{display:flex;gap:4px}
+.langs a{font-size:12px;padding:6px 9px;border-radius:6px;color:var(--muted)}
+.langs a.on{background:var(--accent);color:#fff}
+.head-fixed{display:flex;align-items:center;gap:10px}
+.cart-link{font-weight:600;display:inline-flex;align-items:center;gap:5px;color:#333}
+.cart-link:hover{color:var(--accent)}
+.cart-ico{font-size:17px}
+.cart-badge{background:var(--accent);color:#fff;border-radius:20px;padding:1px 7px;font-size:11px}
+.menu-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;border:0;background:transparent;cursor:pointer;padding:9px}
+.menu-toggle span{display:block;height:2px;background:#333;border-radius:2px;transition:.2s}
+.menu-toggle.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-toggle.on span:nth-child(2){opacity:0}
+.menu-toggle.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* hero */
+.hero{background:linear-gradient(135deg,#fbeef2,#f7f0fb);padding:64px 0;text-align:center}
+.hero h1{font-size:38px;margin:0 0 8px;color:var(--accent-d)}
+.hero p{color:#7a6b70;margin:0 0 20px}
+.hero-btn{display:inline-block;background:var(--accent);color:#fff;padding:11px 22px;border-radius:30px;font-weight:600}
+.hero-btn:hover{background:var(--accent-d)}
+
+/* blocks */
+.block{padding:40px 20px}
+.block h2{font-size:22px;margin:0 0 18px}
+.page-h{font-size:26px;margin:0 0 22px}
+
+/* brand strip */
+.brand-strip{display:flex;flex-wrap:wrap;gap:12px}
+.brand-chip{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:30px;padding:8px 16px;background:var(--soft)}
+.brand-chip:hover{border-color:var(--accent)}
+.brand-chip img{width:24px;height:24px;object-fit:contain}
+
+/* product grid */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.pcard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;transition:.15s}
+.pcard:hover{box-shadow:0 10px 26px rgba(0,0,0,.08);transform:translateY(-2px)}
+.pcard-img{aspect-ratio:1/1;background-size:cover;background-position:center;background-color:var(--soft)}
+.pcard-body{padding:12px 13px}
+.pcard-brand{font-size:11px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.pcard-name{font-size:14px;margin-top:3px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pcard-price{margin-top:7px;font-weight:700}
+
+/* brand grid */
+.brand-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.brand-card{border:1px solid var(--line);border-radius:14px;padding:24px;text-align:center;background:#fff}
+.brand-card:hover{border-color:var(--accent)}
+.brand-logo{height:70px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.brand-logo img{max-height:70px;max-width:140px;object-fit:contain}
+.brand-logo span{font-size:22px;font-weight:800;color:var(--muted);text-transform:uppercase}
+.brand-name{font-weight:700}
+
+/* detail */
+.crumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+.crumb a:hover{color:var(--accent)}
+.detail{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.detail-gallery .big{aspect-ratio:1/1;background-size:cover;background-position:center;background-color:var(--soft);border-radius:16px}
+.thumbs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.thumbs .t{width:64px;height:64px;border-radius:10px;border:1px solid var(--line);background-size:cover;background-position:center;cursor:pointer}
+.thumbs .t:hover{border-color:var(--accent)}
+.d-brand{color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:.4px;font-size:13px}
+.d-name{font-size:28px;margin:6px 0 12px}
+.d-summary{color:#555}
+.d-price{font-size:24px;font-weight:800;margin:16px 0}
+.d-buy{margin-top:18px}
+.d-contact{margin-top:12px;font-size:13px}
+.d-desc{margin-top:46px;border-top:1px solid var(--line);padding-top:26px}
+.d-desc h2{font-size:18px}
+.d-desc-body{color:#444}
+.rel-h{margin:48px 0 18px;font-size:18px}
+
+/* pager */
+.pager{display:flex;gap:6px;justify-content:center;margin-top:30px}
+.pager a{padding:8px 13px;border:1px solid var(--line);border-radius:8px;color:#444}
+.pager a.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* footer */
+.site-foot{border-top:1px solid var(--line);margin-top:50px;background:var(--soft)}
+.foot-inner{padding:28px 20px;display:flex;flex-direction:column;gap:6px}
+.foot-inner a:hover{color:var(--accent)}
+
+@media(max-width:880px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .brand-grid{grid-template-columns:repeat(2,1fr)}
+  .detail{grid-template-columns:1fr}
+
+  /* 햄버거 전환 */
+  .menu-toggle{display:flex}
+  .head-inner{justify-content:space-between;gap:12px}
+  .head-collapse{
+    position:absolute;left:0;right:0;top:62px;
+    display:none;flex:initial;flex-direction:column;align-items:stretch;gap:0;
+    background:#fff;border-bottom:1px solid var(--line);box-shadow:0 10px 24px rgba(0,0,0,.07);
+  }
+  .head-collapse.open{display:flex}
+  .nav{flex:initial;flex-direction:column;gap:0}
+  .nav a{padding:14px 20px;border-bottom:1px solid var(--line)}
+  .head-account{flex-direction:column;gap:0}
+  .head-account a{padding:14px 20px;border-bottom:1px solid var(--line)}
+  .langs{padding:12px 20px;gap:8px}
+  .langs a{padding:9px 14px;border:1px solid var(--line);font-size:13px}
+}
+
+/* ===== M4: 회원/장바구니/주문 ===== */
+.narrow{max-width:560px}
+.ta-c{text-align:center}.ta-r{text-align:right}
+
+.fl{padding:11px 14px;border-radius:9px;margin:14px 0;font-size:14px}
+.fl-success{background:#f0fbf3;color:#1f7a44;border:1px solid #c6f0d4}
+.fl-error{background:#fdf2f2;color:#c0392b;border:1px solid #f8d2d2}
+
+.fform{display:flex;flex-direction:column;gap:14px;max-width:420px}
+.fform label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#666}
+.fform input,.fform select{padding:11px 12px;border:1px solid var(--line);border-radius:9px;font-size:15px}
+.fform input:focus,.fform select:focus{outline:none;border-color:var(--accent)}
+.fform .hint{color:var(--muted);font-size:12px}
+.ghost-btn{display:inline-block;background:#f1edee;color:#444;padding:10px 18px;border-radius:30px;font-weight:600;border:0;cursor:pointer}
+.ghost-btn:hover{background:#e7e0e2}
+
+.carttbl{width:100%;border-collapse:collapse;margin-top:8px}
+.carttbl th,.carttbl td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+.carttbl th{color:var(--muted);font-size:13px;font-weight:600}
+.cthumb{width:56px;height:56px;border-radius:9px;background-size:cover;background-position:center;background-color:var(--soft)}
+.qty-in{width:64px;padding:7px 9px;border:1px solid var(--line);border-radius:8px}
+.btn-x{border:0;background:#f1edee;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;color:#999}
+.btn-x:hover{background:#f8d2d2;color:#c0392b}
+.cart-foot{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.cart-total{font-size:16px}
+
+.addcart{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.inq-link{display:inline-block;margin-top:4px;color:var(--accent);font-size:14px}
+
+.checkout{display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:start}
+.co-form{max-width:none}
+.co-summary{background:var(--soft);border-radius:14px;padding:20px}
+.co-summary h3{margin:0 0 14px;font-size:16px}
+.co-row{display:flex;justify-content:space-between;padding:6px 0;font-size:14px}
+.co-row.total{font-size:17px;margin-top:6px}
+.card-box{border:1px solid var(--line);border-radius:14px;padding:18px;margin:16px 0}
+.done-badge{width:64px;height:64px;border-radius:50%;background:#eafaf0;color:#1f9d55;font-size:34px;display:flex;align-items:center;justify-content:center;margin:10px auto 0}
+.bank-box{background:#fff7e6;border:1px solid #ffe2ad;border-radius:12px;padding:16px;text-align:center}
+.bank-line{font-size:17px;margin-top:6px}
+
+.ostat{font-size:12px;padding:2px 9px;border-radius:20px;background:#eee;color:#555}
+.s-pending{background:#fff4e0;color:#b7791f}
+.s-paid{background:#e6f4ff;color:#1f6fb2}
+.s-shipping{background:#eef0ff;color:#5a4fcf}
+.s-done{background:#eafaf0;color:#1f9d55}
+.s-cancelled{background:#f3f3f3;color:#999}
+
+@media(max-width:880px){ .checkout{grid-template-columns:1fr} }
+
+/* ===== M5: 구매처/소식/페이지/문의 ===== */
+.fform textarea{padding:11px 12px;border:1px solid var(--line);border-radius:9px;font-size:15px;font-family:inherit;resize:vertical}
+.fform textarea:focus{outline:none;border-color:var(--accent)}
+.cms-body{font-size:15px;color:#333;line-height:1.8}
+
+.store-list{display:flex;flex-direction:column;gap:10px}
+.store-item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+a.store-item:hover{border-color:var(--accent)}
+.store-type{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;background:#eee;color:#666}
+.store-type.s-online{background:#e6f4ff;color:#1f6fb2}
+.store-type.s-offline{background:#eafaf0;color:#1f9d55}
+.store-type.s-sns{background:#fdeef4;color:var(--accent)}
+.store-item .go{margin-left:auto;color:var(--accent);font-size:13px;font-weight:600}
+
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.news-card{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.news-card:hover{box-shadow:0 10px 26px rgba(0,0,0,.07)}
+.news-img{aspect-ratio:16/10;background-size:cover;background-position:center;background-color:var(--soft)}
+.news-body{padding:13px 14px}
+.news-title{font-weight:600;line-height:1.4;margin-bottom:5px}
+@media(max-width:880px){ .news-grid{grid-template-columns:1fr} }
+
+/* ===== 모바일 (폰) ===== */
+@media(max-width:560px){
+  .wrap{padding:0 16px}
+  .hero{padding:44px 0}
+  .hero h1{font-size:28px}
+  .hero p{font-size:14px}
+  .block{padding:28px 16px}
+  .block h2{font-size:19px}
+  .page-h{font-size:22px}
+  .cart-txt{display:none}            /* 장바구니: 아이콘+뱃지만 */
+  .cart-ico{font-size:20px}
+
+  /* 터치 타겟 */
+  .hero-btn,.ghost-btn{padding:12px 22px}
+  .qty-in{width:56px;padding:9px}
+
+  /* 상세 */
+  .d-name{font-size:22px}
+  .d-price{font-size:20px}
+  .addcart{flex-wrap:wrap}
+  .detail-gallery .thumbs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+
+  /* 표 → 카드형 (장바구니 / 주문내역) */
+  .carttbl thead{display:none}
+  .carttbl, .carttbl tbody, .carttbl tr, .carttbl td{display:block;width:100%}
+  .carttbl tr{border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+  .carttbl td{border:0;padding:7px 0;display:flex;justify-content:space-between;align-items:center;text-align:right;gap:12px}
+  .carttbl td::before{content:attr(data-label);color:var(--muted);font-size:12px;text-align:left;flex-shrink:0}
+  .carttbl td .cthumb{margin-left:auto}
+  .cart-foot{flex-direction:column;align-items:stretch;gap:12px}
+  .cart-foot .cart-total{text-align:right}
+}
+
+/* ===== 작은 폰 ===== */
+@media(max-width:380px){
+  .grid{grid-template-columns:1fr}
+  .brand-grid{grid-template-columns:1fr}
+}

@@ -1,0 +1,6 @@
+/.env
+/arno_mysql/
+/src/public/uploads/
+*.log
+.DS_Store
+compose.yml.bak

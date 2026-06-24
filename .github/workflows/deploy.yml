@@ -1,0 +1,42 @@
+# =====================================================================
+#  CI/CD 샘플 — git push(main) → 서버 SSH 접속 → 코드 동기화 후 재기동
+#  사용하려면 GitHub 저장소 Settings → Secrets에 아래를 등록:
+#    SSH_HOST        (예: 59.13.193.194)
+#    SSH_USER        (예: root)
+#    SSH_KEY         (배포용 개인키)
+#    DEPLOY_PATH     (예: /home/accu)
+#  처음엔 비활성(on을 workflow_dispatch만)으로 두고, 검증 후 push 트리거를 켜세요.
+# =====================================================================
+name: deploy
+
+on:
+  workflow_dispatch:        # 수동 실행 (안정화 전 기본)
+  # push:
+  #   branches: [ main ]    # 검증 후 이 줄들을 활성화
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rsync source to server
+        uses: easingthemes/ssh-deploy@v5
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          TARGET: ${{ secrets.DEPLOY_PATH }}
+          # .env / DB 볼륨은 서버에만 존재 → 절대 덮어쓰지 않음
+          EXCLUDE: "/.git/, /.github/, /arno_mysql/, /.env, /src/public/uploads/"
+          ARGS: "-rltgoDz --delete"
+
+      - name: Rebuild containers
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.DEPLOY_PATH }}
+            docker compose up -d --build
