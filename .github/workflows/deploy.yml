@@ -1,42 +1,48 @@
-# =====================================================================
-#  CI/CD 샘플 — git push(main) → 서버 SSH 접속 → 코드 동기화 후 재기동
-#  사용하려면 GitHub 저장소 Settings → Secrets에 아래를 등록:
-#    SSH_HOST        (예: 59.13.193.194)
-#    SSH_USER        (예: root)
-#    SSH_KEY         (배포용 개인키)
-#    DEPLOY_PATH     (예: /home/accu)
-#  처음엔 비활성(on을 workflow_dispatch만)으로 두고, 검증 후 push 트리거를 켜세요.
-# =====================================================================
 name: deploy
 
+# 처음엔 수동 실행만 (안정화 후 아래 push 블록 주석 해제)
 on:
-  workflow_dispatch:        # 수동 실행 (안정화 전 기본)
+  workflow_dispatch:        # Actions 탭에서 "Run workflow" 버튼으로 수동 실행
   # push:
-  #   branches: [ main ]    # 검증 후 이 줄들을 활성화
+  #   branches: [ main ]    # 검증 끝나면 이 두 줄을 켜서 자동배포로 전환
 
 jobs:
-  deploy:
+  # 1) CI — PHP 문법 검사 (서버 접속 전에 코드부터 검증)
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Rsync source to server
-        uses: easingthemes/ssh-deploy@v5
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
-          TARGET: ${{ secrets.DEPLOY_PATH }}
-          # .env / DB 볼륨은 서버에만 존재 → 절대 덮어쓰지 않음
-          EXCLUDE: "/.git/, /.github/, /arno_mysql/, /.env, /src/public/uploads/"
-          ARGS: "-rltgoDz --delete"
+          php-version: '8.3'
+      - name: PHP syntax check (lint)
+        run: |
+          set -e
+          find src -name '*.php' -print0 | while IFS= read -r -d '' f; do
+            php -l "$f" > /dev/null
+          done
+          echo "all PHP files passed php -l"
 
-      - name: Rebuild containers
+  # 2) CD — 서버 SSH 접속 → git pull → 컨테이너 반영
+  deploy:
+    needs: lint          # lint 통과해야 배포
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            set -e
             cd ${{ secrets.DEPLOY_PATH }}
-            docker compose up -d --build
+            echo "==> current: $(git rev-parse --short HEAD)"
+            git fetch origin main
+            git reset --hard origin/main
+            echo "==> deployed: $(git rev-parse --short HEAD)"
+            docker-compose up -d --build arno_php
+            sleep 3
+            curl -fsS http://localhost:9090/health && echo " deploy OK" || (echo "health check failed" && exit 1)
