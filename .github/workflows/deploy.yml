@@ -3,8 +3,8 @@ name: deploy
 # 처음엔 수동 실행만 (안정화 후 아래 push 블록 주석 해제)
 on:
   workflow_dispatch:        # Actions 탭에서 "Run workflow" 버튼으로 수동 실행
-  # push:
-  #   branches: [ main ]    # 검증 끝나면 이 두 줄을 켜서 자동배포로 전환
+  push:
+    branches: [ main ]    # 검증 끝나면 이 두 줄을 켜서 자동배포로 전환
 
 jobs:
   # 1) CI — PHP 문법 검사 (서버 접속 전에 코드부터 검증)
