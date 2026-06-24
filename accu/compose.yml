@@ -52,6 +52,8 @@ services:
       - ./sql:/docker-entrypoint-initdb.d:ro            # 최초 1회 자동 초기화(빈 볼륨일 때만)
     networks:
       - arno_net
+    ports:
+      - "127.0.0.1:13306:3306"
 
 networks:
   arno_net:
